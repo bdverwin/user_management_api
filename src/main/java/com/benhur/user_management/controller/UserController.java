@@ -1,8 +1,11 @@
 package com.benhur.user_management.controller;
 
+import com.benhur.user_management.dto.UserRequest;
 import com.benhur.user_management.entity.User;
 import com.benhur.user_management.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/create")
-    public User createUser(@RequestBody User user){
+    public ResponseEntity<?> createUser(@RequestBody @Valid UserRequest user){
         return userService.saveUser(user);
     }
 
@@ -31,12 +34,12 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user){
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody @Valid UserRequest user){
         return userService.updateUser(id, user);
     }
 
     @DeleteMapping("/remove/{id}")
-    public String removeUser(@PathVariable Long id){
+    public ResponseEntity<?> removeUser(@PathVariable Long id){
         return userService.deleteUser(id);
     }
 
